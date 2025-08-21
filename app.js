@@ -14,9 +14,7 @@ app.use(express.json());
 
 //routes
 
-app.use("/",(req,res,next)=>{
-    res.send("jwt-testing-api");
-})
+
 app.use("/api/v1/auth",authRouter);
 
 
