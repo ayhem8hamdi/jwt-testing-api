@@ -3,6 +3,7 @@ const express=require("express");
 const app = express();
 const {connectToDB} = require("./config/db-connection");
 const {notFoundHandler,errorHandler}=  require("./middlewares/errors-middleware");
+const authRouter = require("./routers/auth-router");
 
 
 // DataBase Connection 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/",(req,res,next)=>{
     res.send("jwt-testing-api");
 })
+app.use("/api/v1/auth",authRouter);
 
 
 // Error + Not Found Handler
