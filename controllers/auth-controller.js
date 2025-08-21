@@ -8,13 +8,17 @@ const {hashPassword , comparePasswords} = require("../Helper/password_hashing");
 
 const register = asyncHandler(
   async  (req,res,next)=>{
-        req.body.password=await  hashPassword(req.body.password); 
+      req.body.password=await  hashPassword(req.body.password); 
       const newUser=await User.create(req.body);
     if (!newUser) {
-        return res.status(404).json({status:404,message:"There Was A Problem Try Again Later"});
+return res.status(500).json({
+  status: 500,
+  message: "User could not be created. Please try again later."
+});
     }
-
-      
+    const jwt=newUser.generateToken();
+  const { password, ...others } = newUser.toObject();
+    res.status(201).json({...others , jwt});
     }
 );
 

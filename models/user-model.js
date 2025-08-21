@@ -6,12 +6,12 @@ const jwt =require("jsonwebtoken");
 const userSchema = new mongoose.Schema({
     username: {
     type:String ,
-    reqired:true,
+   required: [true, "username is required"],
     trim:true
 },
     email: {
     type: String,
-    required: true,
+    required: [true, "email is required"],
     unique: true,
     match: [/^\S+@\S+\.\S+$/, "Invalid email address"]
 },
@@ -30,4 +30,4 @@ userSchema.methods.generateToken = function () {
 };
 
 
-module.exports=userSchema.model("User",userSchema);
+module.exports=mongoose.model("User",userSchema);
