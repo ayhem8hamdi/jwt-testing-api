@@ -28,21 +28,16 @@ return res.status(500).json({
 
 const login = asyncHandler(
   async  (req,res,next)=>{
-        const wantedUser= await User.findOne({email:req.body.email});
-        if (!wantedUser) {
-          return  res.status(404).json({status:404,message:"Email Or Password Are Incorrect"});
-        }
-        const isPasswordCorrect=await comparePasswords(req.body.password,wantedUser.password);
-        if (!isPasswordCorrect) {
-          return  res.status(404).json({status:404,message:"Email Or Password Are Incorrect"}); 
-        }
-            const jwt=wantedUser.generateToken();
-  const { password, ...others } = wantedUser.toObject();
+   const {wantedUser}= req.body;
+    const jwt=wantedUser.generateToken();
+   const { password, ...others } = wantedUser.toObject();
     res.status(200).json({...others , token:jwt});
-    }
-
-
-    
+    }  
 );
+
+
+
+
+
 
 module.exports={login,register}
