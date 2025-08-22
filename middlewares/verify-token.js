@@ -19,7 +19,6 @@ function verifyTokenValidity(req,res,next) {
 
 function isAuthorized(req,res,next) {
     if (req.user.userId === req.params.id ) {
-     
       return next();
     }
   return  res.status(403).json({message: "Action Unauthorized"});

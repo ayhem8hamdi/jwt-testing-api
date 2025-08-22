@@ -4,7 +4,7 @@ const app = express();
 const {connectToDB} = require("./config/db-connection");
 const {notFoundHandler,errorHandler}=  require("./middlewares/errors-middleware");
 const authRouter = require("./routers/auth-router");
-
+const dashboardRouter=require("./routers/dashboard-router");
 
 // DataBase Connection 
 connectToDB();
@@ -16,10 +16,10 @@ app.use(express.json());
 
 
 app.use("/api/v1/auth",authRouter);
+app.use("/api/v1/dashboard",dashboardRouter);
 
 
-// Error + Not Found Handler
-
+// Error + Not Found Handle
 app.use(notFoundHandler);
 app.use(errorHandler);
 
